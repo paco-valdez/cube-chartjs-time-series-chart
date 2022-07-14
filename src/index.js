@@ -7,7 +7,10 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import { useDeepCompareMemo } from "use-deep-compare";
 import "chartjs-adapter-moment";
-// import * as ChartAnnotation from "chartjs-plugin-annotation";
+import { Chart as ChartJS } from "chart.js";
+import Annotation from "chartjs-plugin-annotation";
+
+ChartJS.register(Annotation);
 
 const COLORS_SERIES = [
   "#5b8ff9",
@@ -34,18 +37,18 @@ const commonOptions = {
     autocolors: false,
     legend: {
       position: "bottom"
+    },
+    annotation: {
+      annotations: {
+        line1: {
+          type: "line",
+          yMin: 0.07,
+          yMax: 0.07,
+          borderColor: "rgb(255, 99, 132)",
+          borderWidth: 2
+        }
+      }
     }
-    // annotation: {
-    //   annotations: {
-    //     line1: {
-    //       type: "line",
-    //       yMin: 0.07,
-    //       yMax: 0.07,
-    //       borderColor: "rgb(255, 99, 132)",
-    //       borderWidth: 2,
-    //     }
-    //   }
-    // }
     // decimation: {
     //   enabled: true,
     //   algorithm: "min-max"
@@ -219,4 +222,12 @@ const ChartRenderer = () => {
 };
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<ChartRenderer />, rootElement);
+let node = document.createElement("div");
+rootElement.appendChild(node);
+ReactDOM.render(<ChartRenderer />, node);
+node = document.createElement("div");
+rootElement.appendChild(node);
+ReactDOM.render(<ChartRenderer />, node);
+node = document.createElement("div");
+rootElement.appendChild(node);
+ReactDOM.render(<ChartRenderer />, node);
